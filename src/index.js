@@ -25,7 +25,7 @@ socket.addEventListener('message', (event) => {
     const leaderboard = data.commandData.leaderboard;
     const score = data.commandData.score;
     
-    if (score.rank == 1 && score.pp) { // Checks if the score is the first place and if the map is ranked
+    if (score.rank <= 10 && score.pp) { // Checks if the score is the first place and if the map is ranked
         if (Config.countryOnly != "ALL" && Config.countryOnly != playerInfo.country) {
             return;
         }
@@ -40,5 +40,6 @@ socket.addEventListener('message', (event) => {
         }
         msg.addField("Leaderboard", `[${leaderboard.songName}](https://scoresaber.com/leaderboard/${leaderboard.id})`, true)
         Hook.send(msg); // Sends the score to the webhook
+        console.log(`${playerInfo.name} has set a #1 on ${leaderboard.songName}!`)
     }
 });
